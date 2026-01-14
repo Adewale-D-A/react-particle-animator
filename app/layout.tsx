@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Particle Animator",
-  description: "Template App using Next.js 13 and Tailwind CSS",
+  description:
+    "Particle Animation Template App using Next.js 13 and Tailwind CSS",
 };
 
 export default function RootLayout({
