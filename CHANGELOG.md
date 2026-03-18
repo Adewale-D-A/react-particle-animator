@@ -1,3 +1,9 @@
-#### Wed Jan 28, 2026
+#### Mon Feb 16, 2026
+> Feature: Upload img to render
 
-> Feature: Brand logo addition
+#### Wed Jan 23, 2026
+> Updates: Readme file adjustments and component folder rename
+
+#### Wed Jan 14, 2026
+
+> Feature: Particle animation logic setup

@@ -1,10 +1,6 @@
 # React Particle Animation
 
-This project provides a reusable particle animation logic built with Next.js, and TypeScript. The intent behind this solution came when I was working on a project and the business owner explained the need to have an animation-like design featuring their brand logo on their hero header where on mouse over, it disperse the brand logo in a particle form and then the brand logo comes back together forming the original shape on mouse leave. This feature I cannot take full credit for, I will search for the original tutorial which was in Vanila Js, CSS and HTML that I had to convert to a react component. The custom logic handling the animation feature is in this codebase for developers to utilize. It works best if the brand logo is a single shape.
-
-[Original Video Guide](https://www.youtube.com/watch?v=XGioNBHrFU4)
-[Implemented Website 1 - for reference](https://www.elironco.com)
-[Implemented Website 2 - for reference](https://www.mindwalks.org)
+This project provides a reusable particle animation view component built with Next.js, React, and TypeScript. The component is designed for logo branding on a website.
 
 ---
 
@@ -12,10 +8,12 @@ This project provides a reusable particle animation logic built with Next.js, an
 
 The following tools are required to run and maintain this project:
 
-| Package    | Purpose               |
-| ---------- | --------------------- |
-| Next.js    | Application framework |
-| TypeScript | Static typing         |
+| Package       | Purpose                      |
+|---------------|------------------------------|
+| Next.js       | Application framework        |
+| React         | UI rendering                 |
+| TypeScript    | Static typing                |
+| TailwindCSS   | UI styling                   |
 
 A working knowledge of these tools is required for collaboration.
 
@@ -24,27 +22,21 @@ A working knowledge of these tools is required for collaboration.
 ## Local Development Setup
 
 1. Install dependencies:
-
 ```bash
 npm install
 ```
-
-2. Startup the application:
-
+2. Start development server:
 ```bash
 npm run dev
 ```
-
 > The application will run on http://localhost:3000
 
 ## Folder Structure
-
 ```
 project-root/
 ├── app/
-│   │
 │   ├── _components/
-│   │   |── particle-animation.tsx     # Animation particle logic compoenent
+│   │   └── particle-animation.jsx     # Particle animation component
 │   │
 │   ├── favicon.ico
 │   ├── globals.css
@@ -67,15 +59,8 @@ project-root/
 ```
 
 ## Component Usage
-
-1. Particle View Component
+1. Animation View Component
 
 ```
-The particle component accepts one prop:
-
-[x] - IMAGE_URI – String value of preferred logo as a DAT URI
-
-<ParticleAnimation
-  IMAGE_URI={"}
-/>
+<ParticleAnimation />
 ```

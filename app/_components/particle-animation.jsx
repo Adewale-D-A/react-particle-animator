@@ -1,16 +1,32 @@
-// @ts-nocheck - may need to be at the start of file
+// @ts-nocheck
 "use client";
 
-import { useEffect, useRef } from "react";
-export default function ParticleAnimation({ IMAGE_URI }) {
-  const canvasRef = useRef();
+import { useEffect, useRef, useState } from "react";
+
+export default function ParticleAnimation() {
+  const canvasRef = useRef(null);
+  const [imgFile, setImgFile] = useState(null);
+  const [imgUri, setImgUri] = useState("");
+
+  const handleImageChange = (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      });
+      const reader = new FileReader();
+      reader.onload = () => setImgUri(reader.result);
+      reader.readAsDataURL(file);
+      setImgFile(file);
+    }
+  };
 
   const handleCanvasGraphics = () => {
     try {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
       const base_image = new Image();
-      base_image.src = IMAGE_URI;
+      base_image.src = imgUri;
       // canvas.width = window.innerWidth;
       // canvas.height = window.innerHeight;
       canvas.width = canvas.clientWidth;
@@ -93,7 +109,7 @@ export default function ParticleAnimation({ IMAGE_URI }) {
                 0,
                 0,
                 this.canvasWidth,
-                this.canvasHeight
+                this.canvasHeight,
               );
               this.convertToParticles();
             };
@@ -128,7 +144,7 @@ export default function ParticleAnimation({ IMAGE_URI }) {
               this.context.fillText(
                 el,
                 this.textX,
-                this.textY + index * this.lineHeight
+                this.textY + index * this.lineHeight,
               );
             });
             this.convertToParticles();
@@ -141,7 +157,7 @@ export default function ParticleAnimation({ IMAGE_URI }) {
             0,
             0,
             this.canvasWidth,
-            this.canvasHeight
+            this.canvasHeight,
           ).data;
           this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
           for (let y = 0; y < this.canvasHeight; y += this.gap) {
@@ -167,7 +183,7 @@ export default function ParticleAnimation({ IMAGE_URI }) {
       }
 
       const effect = new Effect(ctx, canvas.width, canvas.height, true);
-      effect.wrapText("MindWalks");
+      effect.wrapText("Particle");
       effect.render();
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -179,12 +195,34 @@ export default function ParticleAnimation({ IMAGE_URI }) {
   };
 
   useEffect(() => {
-    handleCanvasGraphics();
-  }, [canvasRef]);
+    if ((imgUri, canvasRef)) {
+      handleCanvasGraphics();
+    }
+  }, [canvasRef, imgUri]);
 
   return (
-    <div className={"w-full h-full"}>
-      <canvas className="w-full h-full z-10" ref={canvasRef} id="canvas_id" />
+    <div className={"w-full h-full space-y-10"}>
+      <div className=" w-full flex flex-col justify-center items-center gap-5">
+        {imgFile?.preview && (
+          <img
+            src={imgFile?.preview}
+            alt="Upload Preview"
+            className=" w-40 h-auto rounded-lg shadow-lg"
+          />
+        )}
+        <label className="">
+          <span className=" w-fit p-3 px-5 bg-blue-900 text-white hover:bg-blue-950 rounded-xl transition-all">
+            Upload Image
+          </span>
+          <input
+            type="file"
+            accept="image/jpg, image/jpeg, image/png"
+            onChange={(e) => handleImageChange(e)}
+            className="hidden"
+          />
+        </label>
+      </div>
+      <canvas className="w-full h-full aspect-square z-10" ref={canvasRef} id="canvas_id" />
     </div>
   );
 }
